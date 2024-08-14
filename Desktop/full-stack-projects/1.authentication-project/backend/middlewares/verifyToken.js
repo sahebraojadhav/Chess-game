@@ -7,6 +7,7 @@ export const verifyToken = (req, res, next) => {
     console.log("URL:", req.url);
     console.log("Method:", req.method);
     console.log("Cookies:", req.cookies);
+    console.log("jwt tokens",process.env.TZ)
 
     const token=req.cookies.token;
 
@@ -14,7 +15,7 @@ export const verifyToken = (req, res, next) => {
         return res.status(401).json({ success: false, message: "Unauthorized - no token provided" });
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         if (!decoded) return res.status(401).json({ success: false, message: "Unauthorized - invalid token" });
 
